@@ -1,0 +1,94 @@
+<%- include('../partials/header') %>
+
+<section id="All Flights">
+  <div>Airline: </div>
+  <div><%= flight.airline %></div>
+  <div>Airport:</div>
+  <div><%= flight.Airport %></div>
+  <div>FlightNo: </div>
+  <div><%= flight.flightNo %></div>
+  <div>Depart:</div>
+  <div><%= flight.depart %></div> 
+
+
+
+</section>
+
+
+
+<br><br><h2>DESTINATIONS</h2>
+<form id="Add Destinations" method="POST"
+action="/flights/<%= flight._id %>/destinations">
+    <label>Destination:</label>
+    <select name="airport">
+    <option value="AUS">AUS</option>
+    <option value="DFW">DFW</option>
+    <option value="DEN">DEN</option>
+    <option value="LAX">LAX</option>
+    </select>
+
+<label> Date:
+    <input type="datetime-local" name="arrival">
+</label>
+<input type="submit" value="Add Destination">
+</form>
+
+<% if (flight.destination) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Airport</th>
+          <th>Arrival</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Yes, we can define variables! -->
+        <% flight.destination.forEach(function(d) { %>
+          <!-- Accumulate the total rating -->
+          <tr>
+            <td><%= d.airport %></td>
+            <td><%= d.arrival%></td>
+          </tr>
+        <% }); %>
+       
+      </tbody>  
+    </table>
+      <% } %>
+
+    <!-- Tickets -->
+      <br><br><h2>Tickets</h2>
+      <form id="Add Tickets" method="POST"
+      action="/flights/<%= flight._id %>/tickets">
+          <label>Seat</label>
+            <input name="seat" required pattern="[A-F][1-9]\d?">
+        
+           <label>Price</label>
+            <input>
+
+      </select>
+      <h2>Tickets</h2>
+        <table>
+            <table>
+                <thead>
+                  <tr>
+                    <th>Seat</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+ <% tickets.forEach(function(t) { %>
+                        
+     <tr>
+         <td><%= t.seat %></td>
+         <td><%= t.price%></td>
+         </tr>
+        <% }); %>
+                     
+    </tbody>  
+ </table>
+ 
+ <a href="/flights/<%= flight._id %>/tickets/new">New Ticket</a>
+
+
+
+</section>
